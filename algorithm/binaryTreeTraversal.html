@@ -10,7 +10,7 @@
     <script>
         // 前序 
         function preOrder (root) {
-            if (Object.prototype.toString.call(root) !== '[object Object]') {
+            if (!root) {
                 return
             }
         
@@ -22,7 +22,7 @@
 
         // 中序
         function inOrder (root) {
-            if (Object.prototype.toString.call(root) !== '[object Object]') {
+            if (!root) {
                 return
             }
         
@@ -34,7 +34,7 @@
 
         // 后序
         function postOrder (root) {
-            if (Object.prototype.toString.call(root) !== '[object Object]') {
+            if (!root) {
                 return
             }
         

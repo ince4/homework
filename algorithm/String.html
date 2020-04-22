@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>
+            <!-- 1 -->
+            示例 1: 输入: "aba"
+            输出: True
+            示例 2:
+            输入: "abca"
+            输出: True
+            解释: 你可以删除c字符。
+            注意: 字符串只包含从 a-z 的小写字母。字符串的最大长度是50000。
+        </li>
+        <li>
+            <!-- 2 -->
+            真题描述： 设计一个支持以下两种操作的数据结构：
+            void addWord(word)
+            bool search(word)
+            search(word) 可以搜索文字或正则表达式字符串，字符串只包含字母 . 或 a-z 。
+            . 可以表示任何一个字母。
+        </li>
+    </ul>
+    <script>
+        // 1
+        function a (str) {
+            let i = 0
+            let j = str.length - 1
+            while (i < j && str[i] === str[j]) {
+                i++
+                j--
+            }
+            if (i >= j) {
+                return true
+            }
+            if (b(i + 1, j) || b(i, j - 1) ) {
+                return true
+            }
+            
+            function b (i, j) {
+                while (i < j) {
+                    if (str[i] !== str[j]) {
+                        return false
+                    }
+                    i++
+                    j--
+                }
+                return true
+            }
+
+            return false
+        }
+
+        console.log(a('1a21'))
+
+        // 2
+        const WordDictionary = function () {
+            this.words = {}
+        };
+
+        WordDictionary.prototype.addWord = function (word) {
+            // 若该字符串对应长度的数组已经存在，则只做添加
+            if (this.words[word.length]) {
+                this.words[word.length].push(word)
+            } else {
+                // 若该字符串对应长度的数组还不存在，则先创建
+                this.words[word.length] = [word]
+            }
+
+        };
+
+        WordDictionary.prototype.search = function (word) {
+        // 若该字符串长度在 Map 中对应的数组根本不存在，则可判断该字符串不存在
+            if (!this.words[word.length]) {
+                return false
+            }
+            const len = word.length
+            if (!word.includes('.')) {
+                return this.words[len].includes(word)
+            }
+            const reg = new RegExp(word)
+            return this.words[len].some((item) => {
+                return reg.test(item)
+            })
+        };
+    </script>
+</body>
+</html>

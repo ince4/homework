@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+// new
+
+const createNew = (Con, ...args) => {
+    const obj = {}
+    Object.setPrototypeOf(obj, Con.prototype)
+    let result = Con.apply(obj, args)
+    return result instanceof Object ? result : obj
+}
+
+// Object.create
+
+function _create (prototypeOfCon) {
+    function foo () {}
+    foo.prototype = prototypeOfCon
+    return new foo()
+}
+
+function a () {this.sb = 'ym'}
+let b = createNew(a)
+let c = _create(a.prototype)
+console.log(b, c)
+</script>
+</html>

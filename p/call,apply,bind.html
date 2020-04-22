@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    // call 
+    Function.prototype.$call = function (target, ...args) {
+        target = target ? new Object (target) : window
+        const fn = Symbol()
+        target.fn = this
+        let result = target.fn(...args)
+        delete target.fn
+        return result
+    }
+
+    // apply
+    Function.prototype.$apply = function (target, arg) {
+        target = target ? new Object (target) : window
+        const fn = Symbol()
+        target.fn = this
+        let result
+        if (!arg) {
+            result = target.fn()
+        } else {
+            result = target.fn(...arg)
+        }
+        delete target.fn
+        return result
+    }
+
+    // bind
+    Function.prototype.$bind = function(context, ...args) {
+    const fn = this
+    const bindFn = function (...newFnArgs) {
+        return fn.call(
+            this instanceof bindFn ? this : context,
+            ...args, ...newFnArgs
+        )
+    }
+    bindFn.prototype = Object.create(fn.prototype)
+    return bindFn
+}
+    let str = 'abc'
+    var r = Array.prototype.slice.$apply(str)
+    console.log(r);
+</script>
+</html>
