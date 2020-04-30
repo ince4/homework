@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+</body>
+<script>
+    Function.prototype.myCall = function (target, ...params) {
+        target = target ? new Object(target) : window
+        let fn = Symbol()
+        target[fn] = this
+        let result = target[fn](...params)
+        delete target.fn
+        return result
+    }
+
+    Function.prototype.myBind = function (target, ...params) {
+        let fn = this
+        let outPutFn = function (...args) {
+            return fn.call(this instanceof outPutFn ? this : target, ...params, ...args)
+        }
+        outPutFn.prototype = Object.create(fn.prototype)
+        return outPutFn
+    }
+</script>
+</html>

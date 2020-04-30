@@ -15,8 +15,8 @@
     Function.prototype.$call = function (target, ...args) {
         target = target ? new Object (target) : window
         const fn = Symbol()
-        target.fn = this
-        let result = target.fn(...args)
+        target[fn] = this
+        let result = target[fn](...args)
         delete target.fn
         return result
     }

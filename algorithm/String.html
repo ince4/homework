@@ -6,28 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <ul>
-        <li>
-            <!-- 1 -->
-            示例 1: 输入: "aba"
-            输出: True
-            示例 2:
-            输入: "abca"
-            输出: True
-            解释: 你可以删除c字符。
-            注意: 字符串只包含从 a-z 的小写字母。字符串的最大长度是50000。
-        </li>
-        <li>
-            <!-- 2 -->
-            真题描述： 设计一个支持以下两种操作的数据结构：
-            void addWord(word)
-            bool search(word)
-            search(word) 可以搜索文字或正则表达式字符串，字符串只包含字母 . 或 a-z 。
-            . 可以表示任何一个字母。
-        </li>
-    </ul>
+
     <script>
         // 1
+        // 示例 1: 输入: "aba"
+        // 输出: True
+        // 示例 2:
+        // 输入: "abca"
+        // 输出: True
+        // 解释: 你可以删除c字符。
+        // 注意: 字符串只包含从 a-z 的小写字母。字符串的最大长度是50000。
+
         function a (str) {
             let i = 0
             let j = str.length - 1
@@ -55,39 +44,79 @@
 
             return false
         }
-
-        console.log(a('1a21'))
+        // console.log(a('1a21'))
 
         // 2
+        // 真题描述： 设计一个支持以下两种操作的数据结构：
+        //     void addWord(word)
+        //     bool search(word)
+        //     search(word) 可以搜索文字或正则表达式字符串，字符串只包含字母 . 或 a-z 。
+        //     . 可以表示任何一个字母。
+
         const WordDictionary = function () {
             this.words = {}
         };
 
         WordDictionary.prototype.addWord = function (word) {
-            // 若该字符串对应长度的数组已经存在，则只做添加
-            if (this.words[word.length]) {
-                this.words[word.length].push(word)
-            } else {
-                // 若该字符串对应长度的数组还不存在，则先创建
-                this.words[word.length] = [word]
-            }
-
+        if (this.words[word.length]) {
+            this.words[word.length].push(word)
+        } else {
+            this.words[word.length] = [word]
+        }
         };
 
         WordDictionary.prototype.search = function (word) {
-        // 若该字符串长度在 Map 中对应的数组根本不存在，则可判断该字符串不存在
-            if (!this.words[word.length]) {
-                return false
+        if (!this.words[word.length]) {
+            return false
+        }
+
+        const len = word.length
+        if (!word.includes('.')) {
+            return this.words[len].includes(word)
+        }
+
+        const reg = new RegExp(word)
+        return this.words[len].some((item) => {
+            return reg.test(item)
+        })
+        }; 
+
+        // let w = new WordDictionary()
+        // w.addWord('qwe')
+        // console.log(w.search('...'))
+
+        // 3
+        // 真题描述：请你来实现一个 atoi 函数，使其能将字符串转换成整数。
+        // 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个
+        // 非空格的字符为止。
+        // 当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面
+        // 尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空
+        // 字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。
+        // 该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符
+        // 可以被忽略，它们对于函数不应该造成影响。
+        // 注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字
+        // 符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。
+        // 在任何情况下，若函数不能进行有效的转换时，请返回 0。
+
+        // 说明： 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值
+        // 范围为 [−2^31,  2^31 − 1]。如果数值超过这个范围，请返回  
+        // INT_MAX (2^31 − 1) 或 INT_MIN (−2^31) 。
+        function atoi (str) {
+            const max = Math.pow(2, 31) - 1
+            const min = -max - 1
+            
+            const reg = /\s*([-\+]?[0-9]*).*/
+            const groups = str.match(reg)
+            
+            let result = 0
+            if(groups) {
+                result = +groups[1]
+                result = isNaN(result) ? 0 : result
             }
-            const len = word.length
-            if (!word.includes('.')) {
-                return this.words[len].includes(word)
-            }
-            const reg = new RegExp(word)
-            return this.words[len].some((item) => {
-                return reg.test(item)
-            })
-        };
+            return result
+        }
+
+        console.log(atoi('432rwes'))
     </script>
 </body>
 </html>

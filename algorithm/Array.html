@@ -6,19 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <ul>
-        <li>
-            示例: 给定 nums = [2, 7, 11, 15], target = 9
-            因为 nums[0] + nums[1] = 2 + 7 = 9 所以返回 [0, 1]
-        </li>
-        <li>
-            判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
-            给定数组 nums = [-1, 0, 1, 2, -1, -4]
-            满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]
-        </li>
-    </ul>
+
     <script>
         // 1
+        // 示例: 给定 nums = [2, 7, 11, 15], target = 9
+        // 因为 nums[0] + nums[1] = 2 + 7 = 9 所以返回 [0, 1]
         // const nums = [2, 7, 11, 15]
         const target = 9
         let factor = new Map()
@@ -35,6 +27,9 @@
         }
 
         // 2
+        // 判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
+        // 给定数组 nums = [-1, 0, 1, 2, -1, -4]
+        // 满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]
         const nums = [-1, 0, 1, 2, -1, -4]
 
         function getFactorIndex (nums ,target) {
