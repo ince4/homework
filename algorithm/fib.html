@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+			// 形如1, 1, 2, 3, 5, 8, 13, 21, 34, 55的数列
+			// ，后一位是前面两位相加（斐波那契数列），写出函
+			// 数要求找到第 N 位是多少，如：fib(3) => 3 ， f
+			// ib(5) => 8, 要求时间复杂度为O(n)。
+
+
+			function fib(n){
+				let top = 1,bottom = 0,res = 0
+				for(let i = 0;i < n;i++){
+						res = top + bottom
+						bottom = top
+						top = res
+				}
+				return res
+			}
+
+    </script>
+</body>
+</html>

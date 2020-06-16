@@ -17,7 +17,7 @@
         const fn = Symbol()
         target[fn] = this
         let result = target[fn](...args)
-        delete target.fn
+        delete target[fn]
         return result
     }
 
@@ -25,7 +25,7 @@
     Function.prototype.$apply = function (target, arg) {
         target = target ? new Object (target) : window
         const fn = Symbol()
-        target.fn = this
+        target[fn] = this
         let result
         if (!arg) {
             result = target.fn()
